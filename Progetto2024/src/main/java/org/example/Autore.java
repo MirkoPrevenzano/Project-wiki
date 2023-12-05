@@ -1,13 +1,14 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Autore extends Utente{
     private String login;
     private String password;
 
-    ArrayList<Pagina> pagine_create;
-    ArrayList<Proposta> proposte_gestite;
+    private ArrayList<Pagina> pagine_create;
+    private ArrayList<Proposta> proposte_gestite;
 
     public Autore(String nome, String cognome, String login, String password)
     {
@@ -18,6 +19,30 @@ public class Autore extends Utente{
         proposte_gestite = new ArrayList<Proposta>();
     }
 
+    public void addListProposta(Proposta p)
+    {
+        proposte_gestite.add(p);
+    }
+    public void removeListProposta(Proposta p)
+    {
+        proposte_gestite.remove(p);
+    }
+    public List<Proposta> getListProposta()
+    {
+        return proposte_gestite;
+    }
+    public void removeListPagine(Pagina p)
+    {
+        pagine_create.remove(p);
+    }
+    public void addListPagine(Pagina p)
+    {
+        pagine_create.add(p);
+    }
+    public List<Pagina> getListString()
+    {
+        return pagine_create;
+    }
     public String getLogin() {
         return login;
     }

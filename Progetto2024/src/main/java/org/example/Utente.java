@@ -3,15 +3,35 @@ package org.example;
 import java.util.ArrayList;
 
 public class Utente {
-    public String nome;
-    public String cognome;
+    protected String nome;
+    protected String cognome;
 
-    ArrayList<Proposta> proposte_richieste;
+    protected ArrayList<Proposta> proposte_richieste;
 
     public Utente(String nome, String cognome)
     {
         this.nome = nome;
         this.cognome = cognome;
         proposte_richieste = new ArrayList<Proposta>();
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+    public void addProposta(Proposta p)
+    {
+        proposte_richieste.add(p);
+    }
+    public void removeProposta(Proposta p)
+    {
+        proposte_richieste.remove(p);
+    }
+
+    public ArrayList<Proposta> getListProposte() {
+        return proposte_richieste;
     }
 }

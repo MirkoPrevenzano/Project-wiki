@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Proposta {
-    public Date data;
-    public Time ora;
+    private Date data;
+    private Time ora;
     private boolean stato;
-    public Utente utente;
-    public Autore autore;
+    private Utente utente;
+    private Autore autore;
     public Testo testo;
 
     private List<Frase> frasi_selezionate;
@@ -56,6 +56,67 @@ public class Proposta {
     }
     public void addListString(String propModify)
     {
-
+        modifica.add(propModify);
     }
+    public void removeListString(String propModify)
+    {
+        modifica.remove(propModify);
+    }
+    public List<String> getListString()
+    {
+        return modifica;
+    }
+    public void addListFrase(Frase f)
+    {
+        frasi_selezionate.add(f);
+    }
+    public void removeListString(Frase f)
+    {
+        frasi_selezionate.remove(f);
+    }
+    public List<Frase> getListFrase()
+    {
+        return frasi_selezionate;
+    }
+
+    public Autore getAutore() {
+        return autore;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public Testo getTesto() {
+        return testo;
+    }
+
+    public Time getOra() {
+        return ora;
+    }
+
+    public Utente getUtente() {
+        return utente;
+    }
+
+    public void setTesto(Testo testo) {
+        this.testo = testo;
+    }
+
+    public void setAutore(Autore autore) {
+        this.autore = autore;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public void setOra(Time ora) {
+        this.ora = ora;
+    }
+
+    public void setUtente(Utente utente) {
+        this.utente = utente;
+    }
+
 }
