@@ -35,6 +35,33 @@ public class accessoUtente {
                 frameChiamante.setVisible(true);//riattivo frame home
                 accessoUtente.this.frame.dispose();
             }
+
+        });
+        buttonAccess.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(accessoUtente.this.textName.getText().isBlank() || accessoUtente.this.textCognome.getText().isBlank())
+                {
+                    JOptionPane.showMessageDialog(accessoUtente.frame, "Compila tutti i campi");
+                }
+                else
+                {
+                    Boolean ctr = controller.accessUtente(accessoUtente.this.textName.getText(),accessoUtente.this.textCognome.getText());
+                    if (ctr)
+                    {
+                        SchermataUtente schermatautente = new SchermataUtente(controller,accessoUtente.frame);
+                        accessoUtente.frame.setVisible(false);
+                        SchermataUtente.frame.setVisible(true);
+
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(accessoUtente.frame, "Utente non presente");
+                    }
+
+                }
+            }
         });
     }
 }
+

@@ -4,6 +4,8 @@ import Model.Autore;
 import Model.ListinoIscritti;
 import Model.Utente;
 
+import java.util.Iterator;
+
 public class Controller {
     private Autore autore;
     private Utente utente;
@@ -14,8 +16,8 @@ public class Controller {
     public int addNewAuthor(String nome, String cognome, String username, String password) {
         for (Autore a:listinoIscritti.getListAutore()
              ) {
-            if(a.getLogin().equals(autore.getLogin()))
-                return 2;
+            if(a.getLogin().equals(username))
+                return 2;//autore già esistente
 
         }
         this.autore=new Autore(nome,cognome,username, password);
@@ -29,8 +31,8 @@ public class Controller {
     public int addNewUtente(String nome, String cognome) {
         for (Utente u:listinoIscritti.getListUtente()
         ) {
-            if(u.getNome().equals(utente.getNome())&&u.getCognome().equals(utente.getCognome()))
-                return 2;
+            if(u.getNome().equals(nome)&&u.getCognome().equals(cognome))
+                return 2;//utente già esistente
 
         }
         this.utente=new Utente(nome,cognome);
@@ -38,5 +40,57 @@ public class Controller {
 
         if(utente!=null)
             return 1;
-        return 0;    }
+        return 0;
+    }
+    public int accessAutore(String username, String password)
+    {
+        /*Iterator i=listinoIscritti.getListUtente().iterator();
+        while(i.hasNext())
+        {
+            Autore a=(Autore)i.next();
+            System.out.println(a.getLogin());
+            if(a.getLogin().equals(username))
+            {
+                if(a.getPassword().equals(password))
+                {
+                    return 1; //passwordCorretta
+                }
+                else
+                {
+                    return 2; //passwordErrata
+                }
+            }
+
+        }*/
+        for (Autore a:listinoIscritti.getListAutore()
+             ) {
+            if(a.getLogin().equals(username))
+            {
+                if(a.getPassword().equals(password))
+                {
+                    return 1; //passwordCorretta
+                }
+                else
+                {
+                    return 2; //passwordErrata
+                }
+            }
+        }
+        return 0;//Autore non esistente
+    }
+    public Boolean accessUtente(String nome, String cognome)
+    {
+        Iterator i = (Iterator) listinoIscritti.getListUtente().iterator();
+        while(i.hasNext())
+        {
+            Utente utente = (Utente)i.next();
+            if(utente.getNome().equals(nome) && utente.getCognome().equals(cognome))
+            {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
 }

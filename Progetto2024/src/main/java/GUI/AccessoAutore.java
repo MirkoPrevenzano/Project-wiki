@@ -42,8 +42,25 @@ public class AccessoAutore {
                 if (AccessoAutore.this.textUsername.getText().isBlank() || AccessoAutore.this.textPassword.getPassword().length == 0) {
                     JOptionPane.showMessageDialog(Iscrizione.frame, "Compila tutti i campi");
                 } else {
-                    System.out.println();
 
+                    int ctr=controller.accessAutore(textUsername.getText(), textPassword.getText());
+                    if(ctr==1)
+                    {
+                        frame.setVisible(false);
+                        SchermataAutore schermataAutore=new SchermataAutore(controller,AccessoAutore.frame);
+                        schermataAutore.frame.setVisible(true);
+                        AccessoAutore.frame.setVisible(false);
+
+
+                    }
+                    else if(ctr==2)
+                    {
+                        JOptionPane.showMessageDialog(frame,"Password errata, riprova");
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(frame, "Autore non trovato");
+                    }
                 }
 
             }

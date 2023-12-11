@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+//ATTENZIONE: vedere metodo AccessoAutore iterator e campo password
 public class Home {
     private final Controller controller; //nel caso di futuri errori levare final
     private static JFrame frame;
