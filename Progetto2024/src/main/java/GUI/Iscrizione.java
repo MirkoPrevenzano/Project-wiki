@@ -55,26 +55,19 @@ public class Iscrizione {
         completaIscrizione.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               /* if ((Iscrizione.this.textName.getText().isBlank() || Iscrizione.this.textCognome.getText().isBlank() || Iscrizione.this.textUsername.getText().isBlank() || Iscrizione.this.textPassword.getText().isBlank())&&Iscrizione.this.buttomAutore.isSelected())
-                {
-                    JOptionPane.showMessageDialog(Iscrizione.frame, "Compila tutti i campi");
-                } else if() {
-                    Boolean ctr = controller.addNewAuthor(Iscrizione.this.textName.getText(), Iscrizione.this.textCognome.getText(), Iscrizione.this.textUsername.getText(), Iscrizione.this.textPassword.getText());
-                    if (ctr) {
-                        JOptionPane.showMessageDialog(Iscrizione.frame, "Iscrizione completata con successo");
-                    } else {
-                        JOptionPane.showMessageDialog(Iscrizione.frame, "Iscrizione fallita");
-                    }
-                }
-                */
+
                 if (Iscrizione.this.buttomAutore.isSelected()) {
                     if (Iscrizione.this.textName.getText().isBlank() || Iscrizione.this.textCognome.getText().isBlank() || Iscrizione.this.textUsername.getText().isBlank() || Iscrizione.this.textPassword.getText().isBlank()) {
                         JOptionPane.showMessageDialog(Iscrizione.frame, "Compila tutti i campi");
                     } else {
-                        Boolean ctr = controller.addNewAuthor(Iscrizione.this.textName.getText(), Iscrizione.this.textCognome.getText(), Iscrizione.this.textUsername.getText(), Iscrizione.this.textPassword.getText());
-                        if (ctr) {
+                        int ctr = controller.addNewAuthor(Iscrizione.this.textName.getText(), Iscrizione.this.textCognome.getText(), Iscrizione.this.textUsername.getText(), Iscrizione.this.textPassword.getText());
+                        if (ctr==1) {
                             JOptionPane.showMessageDialog(Iscrizione.frame, "Iscrizione completata con successo");
-                        } else {
+                        } else if(ctr==2){
+                            JOptionPane.showMessageDialog(Iscrizione.frame, "Autore già iscritto");
+                        }
+                        else
+                        {
                             JOptionPane.showMessageDialog(Iscrizione.frame, "Iscrizione fallita");
                         }
                     }
@@ -82,10 +75,14 @@ public class Iscrizione {
                     if (Iscrizione.this.textName.getText().isBlank() || Iscrizione.this.textCognome.getText().isBlank()) {
                         JOptionPane.showMessageDialog(Iscrizione.frame, "Compila tutti i campi");
                     } else {
-                        Boolean ctr = controller.addNewUtente(Iscrizione.this.textName.getText(), Iscrizione.this.textCognome.getText());
-                        if (ctr) {
+                        int ctr = controller.addNewUtente(Iscrizione.this.textName.getText(), Iscrizione.this.textCognome.getText());
+                        if (ctr==1) {
                             JOptionPane.showMessageDialog(Iscrizione.frame, "Iscrizione completata con successo");
-                        } else {
+                        } else if(ctr==2){
+                            JOptionPane.showMessageDialog(Iscrizione.frame, "Utente già iscritto");
+                        }
+                        else
+                        {
                             JOptionPane.showMessageDialog(Iscrizione.frame, "Iscrizione fallita");
                         }
                     }

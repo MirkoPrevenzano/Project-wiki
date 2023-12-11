@@ -11,18 +11,32 @@ public class Controller {
     public Controller() {}
 
     //iscrizione, ritora true se l'iscrizione è andata a buon fine (voglio vedere come si può verificare se un utente è iscritto o no
-    public Boolean addNewAuthor(String nome, String cognome, String username, String password) {
+    public int addNewAuthor(String nome, String cognome, String username, String password) {
+        for (Autore a:listinoIscritti.getListAutore()
+             ) {
+            if(a.getLogin().equals(autore.getLogin()))
+                return 2;
+
+        }
         this.autore=new Autore(nome,cognome,username, password);
+
         listinoIscritti.addListAutore(this.autore);
         if(autore!=null)
-            return true;
-        return false;
+            return 1;
+        return 0;
     }
 
-    public Boolean addNewUtente(String nome, String cognome) {
+    public int addNewUtente(String nome, String cognome) {
+        for (Utente u:listinoIscritti.getListUtente()
+        ) {
+            if(u.getNome().equals(utente.getNome())&&u.getCognome().equals(utente.getCognome()))
+                return 2;
+
+        }
         this.utente=new Utente(nome,cognome);
         listinoIscritti.addListUtente(this.utente);
+
         if(utente!=null)
-            return true;
-        return false;    }
+            return 1;
+        return 0;    }
 }
