@@ -7,41 +7,43 @@ public class Autore extends Utente {
     private String login;
     private String password;
 
-    private ArrayList<Pagina> pagine_create;
-    private ArrayList<Proposta> proposte_gestite;
+    private List<Pagina> listPagine;
+    private List<Proposta> listProposte;
 
     public Autore(String nome, String cognome, String login, String password)
     {
         super(nome,cognome);
         this.login = login;
         this.password = password;
-        pagine_create = new ArrayList<Pagina>();
-        proposte_gestite = new ArrayList<Proposta>();
+        listPagine = new ArrayList<>();
+        listProposte = new ArrayList<>();
     }
 
     public void addListProposta(Proposta p)
     {
-        proposte_gestite.add(p);
+        listProposte.add(p);
     }
+
     public void removeListProposta(Proposta p)
     {
-        proposte_gestite.remove(p);
+        listProposte.remove(p);
     }
+
     public List<Proposta> getListProposta()
     {
-        return proposte_gestite;
+        return listProposte;
     }
-    public void removeListPagine(Pagina p)
-    {
-        pagine_create.remove(p);
-    }
+
+    public void removeListPagine(Pagina p) {listPagine.remove(p);}
+
     public void addListPagine(Pagina p)
     {
-        pagine_create.add(p);
+        listPagine.add(p);
     }
+
     public List<Pagina> getListString()
     {
-        return pagine_create;
+        return listPagine;
     }
     public String getLogin() {
         return login;
@@ -50,7 +52,6 @@ public class Autore extends Utente {
     public void setLogin(String login) {
         this.login = login;
     }
-
     public String getPassword() {
         return password;
     }

@@ -2,13 +2,13 @@ package Model;
 
 public class Frase {
     private String testo;
-    private Testo testo_effettivo;
+    private Testo testoEffettivo;
     private Collegamento collegamento;
 
-    public Frase(String testo, Testo testo_effettivo)
+    public Frase(String testo, Testo testoEffettivo)
     {
         this.testo = testo;
-        this.testo_effettivo = testo_effettivo;
+        this.testoEffettivo = testoEffettivo;
     }
 
     public String getTesto() {
@@ -19,8 +19,8 @@ public class Frase {
         return collegamento;
     }
 
-    public Testo getTesto_effettivo() {
-        return testo_effettivo;
+    public Testo getTestoEffettivo() {
+        return testoEffettivo;
     }
 
     public void setTesto(String testo) {
@@ -31,7 +31,7 @@ public class Frase {
         this.collegamento = collegamento;
     }
 
-    public void setTesto_effettivo(Testo testo_effettivo) {
-        this.testo_effettivo = testo_effettivo;
+    public void setTestEffettivo(Testo testoEffettivo) {
+        this.testoEffettivo = testoEffettivo;
     }
 }

@@ -1,6 +1,6 @@
 package GUI;
 
-import Controller.Controller;
+import controllerPackage.Controller;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +24,7 @@ public class Home {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AccessoAutore accessoAutore= new AccessoAutore(Home.this.controller, Home.frame);
-                AccessoAutore.frame.setVisible(true);
+                accessoAutore.frame.setVisible(true);
                 Home.frame.setVisible(false);
             }
         });
@@ -36,8 +36,9 @@ public class Home {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Iscrizione iscrizione = new Iscrizione(Home.this.controller, Home.frame);
-                Iscrizione.frame.setVisible(true);
+                iscrizione.frame.setVisible(true);
                 Home.frame.setVisible(false);
+
             }
         });
         Accesso_Utente.addActionListener(new ActionListener() {

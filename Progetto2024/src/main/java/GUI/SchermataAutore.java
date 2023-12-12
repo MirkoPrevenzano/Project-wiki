@@ -1,6 +1,6 @@
 package GUI;
 
-import Controller.Controller;
+import controllerPackage.Controller;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,7 +13,7 @@ public class SchermataAutore {
     private JPanel panel1;
     private JButton buttonReturn;
 
-    public SchermataAutore( final Controller controller, final JFrame frameChiamante) {
+    public SchermataAutore(final Controller controller, final JFrame frameChiamante) {
          frame=new JFrame("Profilo");
         this.frame.setContentPane(this.panel1);
         this.frame.setDefaultCloseOperation(3);
@@ -29,4 +29,6 @@ public class SchermataAutore {
             }
         });
     }
+
+
 }

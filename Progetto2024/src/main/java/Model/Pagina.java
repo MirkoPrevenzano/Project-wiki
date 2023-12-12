@@ -4,16 +4,16 @@ import java.sql.Time;
 import java.util.Date;
 
 public class Pagina {
-    private String Titolo;
+    private String titolo;
     private Date data;
     private Time ora;
 
     private Autore autore;
     private Testo testo;
 
-    public Pagina(String Titolo, Date data, Time ora, Autore autore)
+    public Pagina(String titolo, Date data, Time ora, Autore autore)
     {
-        this.Titolo = Titolo;
+        this.titolo = titolo;
         this.data = data;
         this.ora = ora;
         this.autore = autore;
@@ -37,7 +37,7 @@ public class Pagina {
     }
 
     public String getTitolo() {
-        return Titolo;
+        return titolo;
     }
 
     public void setOra(Time ora) {
@@ -57,6 +57,6 @@ public class Pagina {
     }
 
     public void setTitolo(String titolo) {
-        Titolo = titolo;
+        this.titolo = titolo;
     }
 }

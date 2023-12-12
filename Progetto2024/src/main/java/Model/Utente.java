@@ -1,20 +1,20 @@
 package Model;
 
-import Model.Proposta;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Utente {
     protected String nome;
     protected String cognome;
 
-    protected ArrayList<Proposta> proposte_richieste;
+    protected List<Proposta> listProposteRichieste;
 
-    public Utente(String nome, String cognome)
-    {
+
+    public Utente(String nome, String cognome) {
         this.nome = nome;
         this.cognome = cognome;
-        proposte_richieste = new ArrayList<Proposta>();
+        listProposteRichieste = new ArrayList<>();
     }
 
     public String getNome() {
@@ -26,14 +26,14 @@ public class Utente {
     }
     public void addProposta(Proposta p)
     {
-        proposte_richieste.add(p);
+        listProposteRichieste.add(p);
     }
     public void removeProposta(Proposta p)
     {
-        proposte_richieste.remove(p);
+        listProposteRichieste.remove(p);
     }
 
-    public ArrayList<Proposta> getListProposte() {
-        return proposte_richieste;
+    public List<Proposta> getListProposte() {
+        return listProposteRichieste;
     }
 }

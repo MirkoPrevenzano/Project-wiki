@@ -11,38 +11,34 @@ public class Proposta {
     private boolean stato;
     private Utente utente;
     private Autore autore;
-    public Testo testo;
+    private Testo testo;
 
-    private List<Frase> frasi_selezionate;
+    private List<Frase> frasiSelezionate;
 
     private List<String> modifica;
 
-    public Proposta(Date data, Time ora, boolean stato, Utente utente, Autore autore, Testo testo, Frase frase, String modifica)
+    public Proposta( Utente utente, Autore autore, Testo testo, Frase frase, String modifica)
     {
-        this.data = data;
-        this.ora = ora;
-        this.stato = stato;
+        //data, ora e stato da inserire in automatico
         this.autore = autore;
         this.utente = utente;
         this.testo = testo;
-        frasi_selezionate = new ArrayList<Frase>();
-        frasi_selezionate.add(frase);
+        frasiSelezionate = new ArrayList<>();
+        frasiSelezionate.add(frase);
         this.modifica = new ArrayList<>();
         this.modifica.add(modifica);
     }
-    public Proposta(Date data, Time ora, boolean stato, Utente utente, Autore autore, Testo testo, List<Frase> frase, List<String> modifica)
+    public Proposta( Utente utente, Autore autore, Testo testo, List<Frase> frase, List<String> modifica)
     {
-        this.data = data;
-        this.ora = ora;
-        this.stato = stato;
+        //data, ora e stato da inserire in automatico
         this.autore = autore;
         this.utente = utente;
         this.testo = testo;
-        if(frasi_selezionate.size()!= modifica.size())
+        if(frasiSelezionate.size()!= modifica.size())
         {
             throw new IllegalArgumentException("Numero frasi selezionate diverso dalle modifiche proposte");
         }
-        frasi_selezionate= frase;
+        frasiSelezionate= frase;
         this.modifica = modifica;
 
     }
@@ -54,29 +50,35 @@ public class Proposta {
     public void setStato(boolean stato) {
         this.stato = stato;
     }
+
     public void addListString(String propModify)
     {
         modifica.add(propModify);
     }
+
     public void removeListString(String propModify)
     {
         modifica.remove(propModify);
     }
+
     public List<String> getListString()
     {
         return modifica;
     }
+
     public void addListFrase(Frase f)
     {
-        frasi_selezionate.add(f);
+        frasiSelezionate.add(f);
     }
+
     public void removeListString(Frase f)
     {
-        frasi_selezionate.remove(f);
+        frasiSelezionate.remove(f);
     }
+
     public List<Frase> getListFrase()
     {
-        return frasi_selezionate;
+        return frasiSelezionate;
     }
 
     public Autore getAutore() {
@@ -118,5 +120,6 @@ public class Proposta {
     public void setUtente(Utente utente) {
         this.utente = utente;
     }
+
 
 }

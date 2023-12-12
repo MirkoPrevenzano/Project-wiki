@@ -1,27 +1,30 @@
 package GUI;
 
-import Controller.Controller;
+import controllerPackage.Controller;
+
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AccessoAutore {
-    static JFrame frame;
-    private JPanel panelUsername;
-    private JPanel panelPassword;
-    private JPanel panelReturn;
-    private JPanel panelAccess;
+    JFrame frame;
+
     private JTextField textUsername;
-    private JLabel labelUsername;
     private JPasswordField textPassword;
-    private JLabel labelPassword;
     private JButton buttonAccess;
     private JButton buttonReturn;
     private JPanel panel1;
+    private JPanel panelUsername;
+    private JLabel labelUsername;
+    private JPanel panelReturn;
+    private JPanel panelPassword;
+    private JPanel panelAccess;
+    private JLabel labelPassword;
 
     public AccessoAutore(final Controller controller, final JFrame frameChiamante) {
-        frame = new JFrame("Accesso autore");
+
+       this.frame = new JFrame("Accesso autore");
         this.frame.setContentPane(this.panel1);
         this.frame.setDefaultCloseOperation(3);
         this.frame.pack();
@@ -47,9 +50,9 @@ public class AccessoAutore {
                     if(ctr==1)
                     {
                         frame.setVisible(false);
-                        SchermataAutore schermataAutore=new SchermataAutore(controller,AccessoAutore.frame);
+                        SchermataAutore schermataAutore=new SchermataAutore(controller,AccessoAutore.this.frame);
                         schermataAutore.frame.setVisible(true);
-                        AccessoAutore.frame.setVisible(false);
+                        AccessoAutore.this.frame.setVisible(false);
 
 
                     }

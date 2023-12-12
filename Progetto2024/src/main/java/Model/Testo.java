@@ -1,27 +1,25 @@
 package Model;
 
-import Model.Frase;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Testo {
 
-    private ArrayList<Frase> frasi;
+    private List<Frase> listFrasi;
 
     public Testo()
     {
-        frasi = new ArrayList<Frase>();
+        listFrasi = new ArrayList<>();
     }
 
-    public ArrayList<Frase> getFrasi() {
-        return frasi;
-    }
+    public List<Frase> getFrasi() {return listFrasi;}
     public void addFrase(Frase f)
     {
-        frasi.add(f);
+        listFrasi.add(f);
     }
     public void removeFrase(Frase f)
     {
-        frasi.remove(f);
+        listFrasi.remove(f);
     }
 }

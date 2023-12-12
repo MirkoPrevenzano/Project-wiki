@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 //metodo per verifica esistenza iscritti. In autore metodo signin
 public class ListinoIscritti {
-    public ListinoIscritti()
-    {}
+     public ListinoIscritti(){} //da rivedere
     private List<Utente> listUtente=new ArrayList<>();
     private List<Autore> listAutore=new ArrayList<>();
 
