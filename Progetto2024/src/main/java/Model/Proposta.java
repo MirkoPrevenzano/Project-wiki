@@ -20,6 +20,7 @@ public class Proposta {
     public Proposta( Utente utente, Autore autore, Testo testo, Frase frase, String modifica)
     {
         //data, ora e stato da inserire in automatico
+
         this.autore = autore;
         this.utente = utente;
         this.testo = testo;

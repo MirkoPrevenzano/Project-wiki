@@ -45,29 +45,10 @@ public class Controller {
     }
     public int accessAutore(String username, String password)
     {
-        /*Iterator i=listinoIscritti.getListUtente().iterator();
-        while(i.hasNext())
-        {
-            Autore a=(Autore)i.next();
-            System.out.println(a.getLogin());
+        for (Autore a:listinoIscritti.getListAutore()){
             if(a.getLogin().equals(username))
             {
-                if(a.getPassword().equals(password))
-                {
-                    return 1; //passwordCorretta
-                }
-                else
-                {
-                    return 2; //passwordErrata
-                }
-            }
-
-        }*/
-        for (Autore a:listinoIscritti.getListAutore()
-        ) {
-            if(a.getLogin().equals(username))
-            {
-                if(a.getPassword().equals(password))
+                if(a.signIn(username, password))
                 {
                     return 1; //passwordCorretta
                 }
@@ -79,18 +60,18 @@ public class Controller {
         }
         return 0;//Autore non esistente
     }
+    
+    
     public Boolean accessUtente(String nome, String cognome)
     {
-        Iterator i = (Iterator) listinoIscritti.getListUtente().iterator();
-        while(i.hasNext())
-        {
-            Utente utente = (Utente)i.next();
+       
+        for (Utente utente:listinoIscritti.getListUtente()){
             if(utente.getNome().equals(nome) && utente.getCognome().equals(cognome))
             {
                 return true;
             }
+            
         }
-
         return false;
 
     }

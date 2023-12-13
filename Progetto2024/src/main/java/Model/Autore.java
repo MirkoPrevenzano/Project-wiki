@@ -59,4 +59,10 @@ public class Autore extends Utente {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Boolean signIn(String username, String password){
+        if(this.login.equals(username)&&this.password.equals(password))
+            return true;
+        return false;
+    }
 }

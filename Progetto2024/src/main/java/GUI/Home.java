@@ -3,7 +3,6 @@ package GUI;
 import controllerPackage.Controller;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 //ATTENZIONE: vedere metodo AccessoAutore iterator e campo password
@@ -44,7 +43,7 @@ public class Home {
         Accesso_Utente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                accessoUtente accessoUt= new accessoUtente(Home.this.controller, Home.frame);
+                AccessoUtente accessoUtente= new AccessoUtente(Home.this.controller, Home.frame);
                 accessoUtente.frame.setVisible(true);
                 Home.frame.setVisible(false);
             }

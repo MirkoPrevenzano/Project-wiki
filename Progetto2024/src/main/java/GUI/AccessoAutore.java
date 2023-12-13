@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AccessoAutore {
-    JFrame frame;
+    public JFrame frame;
 
     private JTextField textUsername;
     private JPasswordField textPassword;
@@ -45,8 +45,10 @@ public class AccessoAutore {
                 if (AccessoAutore.this.textUsername.getText().isBlank() || AccessoAutore.this.textPassword.getPassword().length == 0) {
                     JOptionPane.showMessageDialog(Iscrizione.frame, "Compila tutti i campi");
                 } else {
+                    char[] passwordChars = textPassword.getPassword();
+                    String password = new String(passwordChars);
+                    int ctr = controller.accessAutore(textUsername.getText(), password);
 
-                    int ctr=controller.accessAutore(textUsername.getText(), textPassword.getText());
                     if(ctr==1)
                     {
                         frame.setVisible(false);
