@@ -41,10 +41,6 @@ public class Autore extends Utente {
         listPagine.add(p);
     }
 
-    public List<Pagina> getListString()
-    {
-        return listPagine;
-    }
     public String getLogin() {
         return login;
     }
@@ -52,9 +48,12 @@ public class Autore extends Utente {
     public void setLogin(String login) {
         this.login = login;
     }
+
     public String getPassword() {
         return password;
     }
+
+    public List<Pagina> getListPagine() {return listPagine;}
 
     public void setPassword(String password) {
         this.password = password;

@@ -1,11 +1,11 @@
 package controllerPackage;
 
 
+import Model.*;
 
-import Model.Autore;
 import Model.Pagina;
-import Model.Utente;
-import Model.ListinoIscritti;
+
+import java.util.List;
 
 public class Controller {
     private Autore autore;
@@ -76,13 +76,31 @@ public class Controller {
 
     }
 
-    public void addPage(String titolo, String usernameAutore) {//creo nuova pagina
+    public Boolean addPage(String titolo, String usernameAutore) {//creo nuova pagina
         Autore a=listinoIscritti.searchAutore(usernameAutore);
-        Pagina pagina=new Pagina(titolo,a);
-        a.addListPagine(pagina);
+        List<Pagina> page=a.getListPagine();
+        for (Pagina p:page
+             ) {
+            if(p.getTitolo().equals(titolo))
+            {
+                return false;
+            }
+
+        }
+
+            Pagina p=new Pagina(titolo,a);
+            a.addListPagine(p);
+            return true;
     }
 
-    public void gestioneTestoPage(String nuovaFrase) { //aggiungo una frase
-        System.out.println(nuovaFrase+"nuova frase\n");
+    public void gestioneTestoPage(String nuovaFrase, String usernameAutore, String titolo) {
+        Autore a=listinoIscritti.searchAutore(usernameAutore);
+        List<Pagina> page=a.getListPagine();
+        //uso di stream e filter
+        Pagina pagina = page.stream().filter(paginaT -> paginaT.getTitolo().equals(titolo)).findFirst().orElse(null);
+        Frase f=new Frase(nuovaFrase, pagina.getTesto());
+        pagina.getTesto().addFrase(f);
+
+
     }
 }

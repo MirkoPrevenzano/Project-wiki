@@ -5,6 +5,7 @@ import controllerPackage.Controller;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -39,10 +40,22 @@ public class CreazionePagina {
         creaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (textTitolo.getText() != null) {
-                    buttonSave.setVisible(true);
-                    panelTextArea.setVisible(true);
-                    controller.addPage(textTitolo.getText(), usernameAutore);
+                if (!textTitolo.getText().isBlank()) {
+
+                    Boolean ctr=controller.addPage(textTitolo.getText(), usernameAutore);
+                    if(!ctr)
+                    {
+                        JOptionPane.showMessageDialog(frame,"Hai già una pagina con questo titolo");
+                    }
+                    else
+                    {
+                        buttonSave.setVisible(true);
+                        panelTextArea.setVisible(true);
+                    }
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(frame,"Inserisci un titolo");
                 }
 
 
@@ -57,7 +70,7 @@ public class CreazionePagina {
             }
         });
         //controlla le operazioni fatte nella textArea
-        textArea.getDocument().addDocumentListener(new DocumentListener() {
+        /*textArea.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 checkForNewLine(e, textArea, controller);
@@ -102,5 +115,40 @@ public class CreazionePagina {
             }
         });
 
+    }*/
+        buttonSave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String testo;
+                testo = CreazionePagina.this.textArea.getText();
+
+                if(!testo.isBlank()) {
+                    if (!testo.endsWith("\n")) {
+                        testo += "\n";
+                    }
+                    int supp = 0;
+                    int positions = 0;
+                    do {
+                        String frase;
+                        positions = testo.indexOf("\n", supp + 1);
+                        if (positions != -1) {
+                            if (supp == 0) {
+                                frase = testo.substring(supp, positions + 1);
+                            } else {
+                                frase = testo.substring(supp + 1, positions + 1);
+                            }
+                            controller.gestioneTestoPage(frase,usernameAutore, textTitolo.getText());
+                            supp = positions;
+                        }
+
+                    } while (testo.indexOf("\n", positions + 1) != -1);
+                }
+                JOptionPane.showMessageDialog(frame,"Pagina creata con successo");
+                frameChiamante.setVisible(true);
+                frame.setVisible(false);
+                frame.dispose();
+            }
+
+        });
     }
 }
