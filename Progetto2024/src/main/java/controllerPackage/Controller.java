@@ -3,9 +3,9 @@ package controllerPackage;
 
 
 import Model.Autore;
+import Model.Pagina;
 import Model.Utente;
 import Model.ListinoIscritti;
-import java.util.Iterator;
 
 public class Controller {
     private Autore autore;
@@ -74,5 +74,15 @@ public class Controller {
         }
         return false;
 
+    }
+
+    public void addPage(String titolo, String usernameAutore) {//creo nuova pagina
+        Autore a=listinoIscritti.searchAutore(usernameAutore);
+        Pagina pagina=new Pagina(titolo,a);
+        a.addListPagine(pagina);
+    }
+
+    public void gestioneTestoPage(String nuovaFrase) { //aggiungo una frase
+        System.out.println(nuovaFrase+"nuova frase\n");
     }
 }

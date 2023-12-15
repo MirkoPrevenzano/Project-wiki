@@ -1,26 +1,26 @@
 package Model;
 
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Pagina {
     private String titolo;
-    private Date data;
-    private Time ora;
+    private LocalDate data;
+    private LocalTime ora;
 
     private Autore autore;
     private Testo testo;
 
-    public Pagina(String titolo, Date data, Time ora, Autore autore)
+    public Pagina(String titolo, Autore autore)
     {
         this.titolo = titolo;
-        this.data = data;
-        this.ora = ora;
+        this.data = LocalDate.now();
+        this.ora = LocalTime.now();
         this.autore = autore;
         testo = new Testo();
     }
 
-    public Time getOra() {
+    public LocalTime getOra() {
         return ora;
     }
 
@@ -32,7 +32,7 @@ public class Pagina {
         return testo;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
@@ -40,11 +40,11 @@ public class Pagina {
         return titolo;
     }
 
-    public void setOra(Time ora) {
+    public void setOra(LocalTime ora) {
         this.ora = ora;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 

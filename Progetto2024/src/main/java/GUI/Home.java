@@ -55,8 +55,11 @@ public class Home {
         Home home = new Home();
         frame.setContentPane(home.panel1);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.pack();
+        frame.setSize(400, 300);
+        frame.setLocationRelativeTo(null);// Imposta la posizione di default (centrato sullo schermo)
+        frame.setResizable(false); // Imposta la finestra come ridimensionabile
         frame.setVisible(true);
+        //frame.pack();
 
     }
 

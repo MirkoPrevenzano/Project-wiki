@@ -38,4 +38,15 @@ public class ListinoIscritti {
     public void setListUtente(List<Utente> listUtente) {
         this.listUtente = listUtente;
     }
+    //cerco Oggetto autore di un certo username
+    public Autore searchAutore(String username){    //cerco Oggetto autore di un certo username
+
+        for (Autore p:listAutore
+             ) {
+            if(p.getLogin().equals(username))
+                return p;
+        }
+
+        return null;
+    }
 }

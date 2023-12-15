@@ -33,7 +33,10 @@ public class Iscrizione {
         this.frame = new JFrame("Iscrizione");
         this.frame.setContentPane(this.panel1);
         this.frame.setDefaultCloseOperation(3);
-        this.frame.pack();
+        //this.frame.pack();
+        frame.setSize(400, 300);
+        frame.setLocationRelativeTo(null);// Imposta la posizione di default (centrato sullo schermo)
+        frame.setResizable(false); // Imposta la finestra come ridimensionabile
         this.frame.setLocationRelativeTo(frameChiamante);
         this.frame.setVisible(true);
         this.textPassword.setVisible(false);
@@ -88,6 +91,10 @@ public class Iscrizione {
                     }
 
                 }
+                Iscrizione.this.frame.setVisible(false); //nascondo frame iscrizione
+                frameChiamante.setVisible(true);//riattivo frame home
+                Iscrizione.this.frame.dispose();//rilascio le risorse
+
 
             }
         });

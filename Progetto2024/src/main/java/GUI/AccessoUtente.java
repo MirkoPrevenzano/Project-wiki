@@ -18,7 +18,10 @@ public class AccessoUtente {
         this.frame = new JFrame("Accesso utente");
         this.frame.setContentPane(this.panel1);
         this.frame.setDefaultCloseOperation(3);
-        this.frame.pack();
+        //this.frame.pack();
+        frame.setSize(400, 300);
+        frame.setLocationRelativeTo(null);// Imposta la posizione di default (centrato sullo schermo)
+        frame.setResizable(false); // Imposta la finestra come ridimensionabile
         this.frame.setLocationRelativeTo(frameChiamante);
         this.frame.setVisible(true);
 
