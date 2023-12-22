@@ -1,5 +1,6 @@
 package GUI;
 
+import Model.Pagina;
 import controllerPackage.Controller;
 
 import javax.swing.*;

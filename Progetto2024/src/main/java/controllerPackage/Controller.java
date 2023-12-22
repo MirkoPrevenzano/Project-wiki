@@ -5,13 +5,20 @@ import Model.*;
 
 import Model.Pagina;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
     private Autore autore;
     private Utente utente;
     private final ListinoIscritti listinoIscritti=new ListinoIscritti();
-    public Controller() {}
+    public Controller() {
+        autore=new Autore("m","m","a","a");
+        listinoIscritti.addListAutore(autore);
+        Pagina p=new Pagina("ciao", autore);
+        autore.addListPagine(p);
+
+    }
 
     //iscrizione, ritora true se l'iscrizione è andata a buon fine (voglio vedere come si può verificare se un utente è iscritto o no
     public int addNewAuthor(String nome, String cognome, String username, String password) {
@@ -102,5 +109,29 @@ public class Controller {
         pagina.getTesto().addFrase(f);
 
 
+    }
+
+    public List<String> caricaTitoli(String usernameAutore) {
+        autore=listinoIscritti.searchAutore(usernameAutore);
+        List<Pagina> p=autore.getListPagine();
+        List<String> tit=new ArrayList<>();
+        for (Pagina pp:p
+             ) {
+            tit.add(pp.getTitolo());
+        }
+        return tit;
+    }
+
+    public List<String> getTestoPage(String titoloPagina, String usernameAutore) {
+        autore=listinoIscritti.searchAutore(usernameAutore);
+        List<Pagina> page=autore.getListPagine();
+        Pagina pagina = page.stream().filter(paginaT -> paginaT.getTitolo().equals(titoloPagina)).findFirst().orElse(null);
+        List<Frase> listFrasi=pagina.getTesto().getFrasi();
+        List<String> testoPage=new ArrayList<>();
+        for(Frase f:listFrasi)
+        {
+            testoPage.add(f.getTesto());
+        }
+        return testoPage;
     }
 }
