@@ -13,48 +13,69 @@ import java.util.List;
 
 
 public class SchermataAutore {
-    static JFrame frame;
+    public JFrame frame;
 
-    private JPanel panelReturn;
     private JPanel panel1;
     private JButton buttonReturn;
     private JButton buttonCreatePage;
-    private JPanel panelCreatePage;
-    private JPanel panelList;
-    private JList<String> listPage;
     private JButton aggiornaButton;
+    private JList<String> listPage;
+    private  JPanel panelCreatePage;
+    private JPanel panelList;
+    private JPanel panelReturn;
 
     public SchermataAutore(final Controller controller, final JFrame frameChiamante, final String usernameAutore) {
         frame = new JFrame("Profilo");
-        this.frame.setContentPane(this.panel1);
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        aggiornaButton.setSize(3,4);
-        this.frame.setLocationRelativeTo(frameChiamante);
-        this.frame.setVisible(true);
-        frame.setLayout(null);
-        frame.add(new JScrollPane(listPage));
-        List<String> listTitoli;
-        listTitoli = controller.caricaTitoli(usernameAutore);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //inserisco modello
+        panel1.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
 
+        // Tasto crea pagina
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
 
+        panel1.add(buttonCreatePage, gbc);
 
+        // Pulsante aggiorna lista
+        gbc.gridy++;
+        gbc.gridwidth = 2;
+        aggiornaButton.getMaximumSize();
+        panel1.add(aggiornaButton, gbc);
 
+        // Lista
 
+        gbc.gridy++;
+        gbc.gridwidth = 2;
+        listPage.setFixedCellWidth(200);  // Imposta la larghezza preferita della lista
         DefaultListModel<String> listModel = new DefaultListModel<>();
         listPage.setModel(listModel);
+
+// Aggiungi la lista al pannello
+        gbc.gridy++;
+        gbc.gridwidth = 2;
+// Aggiungi uno scrollPane per supportare la visualizzazione di eventuali elementi in eccesso
         JScrollPane scrollPane = new JScrollPane(listPage);
-
-        panelList.setLayout(new BoxLayout(panelList, BoxLayout.Y_AXIS));
-        panelList.add(scrollPane);
+        panel1.add(scrollPane, gbc);
 
 
-        frame.add(panelList, BorderLayout.CENTER);
-        //frame.pack();
+        //creo listModel
 
+        //popolo la lista
+        List<String> listTitoli = controller.caricaTitoli(usernameAutore);
+        for (String titolo : listTitoli) {
+            listModel.addElement(titolo);
+        }
+
+        // Button return
+        gbc.gridy++;
+        gbc.gridwidth = 2;
+        panel1.add(buttonReturn, gbc);
+
+        frame.getContentPane().add(panel1);
 
         buttonReturn.addActionListener(new ActionListener() {
             @Override
@@ -68,8 +89,10 @@ public class SchermataAutore {
         buttonCreatePage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+
                 CreazionePagina creazionePagina = new CreazionePagina(controller, SchermataAutore.this.frame, usernameAutore, listTitoli);
-                SchermataAutore.frame.setVisible(false);
+                SchermataAutore.this.frame.setVisible(false);
                 creazionePagina.frame.setVisible(true);
             }
         });
@@ -77,7 +100,6 @@ public class SchermataAutore {
         aggiornaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Se vuoi aggiornare la lista, assicurati di svuotarla prima di aggiungere nuovi elementi
                 listModel.clear();
                 listPage.setVisible(true);
                 for (int i = 0; i < listTitoli.size(); i++) {
@@ -85,22 +107,24 @@ public class SchermataAutore {
                 }
             }
         });
-        frame.setVisible(true);
+
         listPage.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting() && !listPage.isSelectionEmpty())
-                {
-                    List<String> listaFrasi=controller.getTestoPage(listPage.getSelectedValue(),usernameAutore);
-                    ViewPagina viewPagina=new ViewPagina(controller,frame,usernameAutore,listaFrasi,listPage.getSelectedValue());
+                if (!e.getValueIsAdjusting() && !listPage.isSelectionEmpty()) {
+                    List<String> listaFrasi = controller.getTestoPage(listPage.getSelectedValue(), usernameAutore);
+                    ViewPagina viewPagina = new ViewPagina(controller, frame, usernameAutore, listaFrasi, listPage.getSelectedValue());
                     viewPagina.frame.setVisible(true);
-                    SchermataAutore.frame.setVisible(false);
+                    SchermataAutore.this.frame.setVisible(false);
                     listPage.clearSelection();
                 }
-
             }
         });
-    }
 
+        frame.setSize(400, 300);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(frameChiamante);
+        frame.setVisible(true);
+    }
 }
 

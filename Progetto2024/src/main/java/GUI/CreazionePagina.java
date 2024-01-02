@@ -8,117 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-/*public class CreazionePagina {
-    public JFrame frame;
-
-    private JButton buttonReturn;
-    private JPanel panelTitolo;
-    private JTextField textTitolo;
-    private JPanel panel1;
-    private JPanel panelTextArea;
-    private JTextArea textArea;
-    private JButton creaButton;
-    private JPanel panelSave;
-    private JButton buttonSave;
-    private JButton returnButton;
-
-    public CreazionePagina(final Controller controller, final JFrame frameChiamante, final String usernameAutore, List<String> listTitoli) {
-        frame = new JFrame("Creazione Pagina");
-        this.frame.setContentPane(this.panel1);
-        this.frame.setDefaultCloseOperation(3);
-        //this.frame.pack();
-        frame.setSize(400, 300);
-        frame.setLocationRelativeTo(null);// Imposta la posizione di default (centrato sullo schermo)
-        frame.setResizable(false); // Imposta la finestra come ridimensionabile
-        this.frame.setLocationRelativeTo(frameChiamante);
-        this.frame.setVisible(true);
-        panelTextArea.setVisible(false);
-        buttonSave.setVisible(false);
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        panelTextArea.setLayout(new BorderLayout());
-
-        panelTextArea.add(scrollPane);
-
-
-        creaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!textTitolo.getText().isBlank()) {
-
-                    Boolean ctr=controller.addPage(textTitolo.getText(), usernameAutore);
-                    if(!ctr)
-                    {
-                        JOptionPane.showMessageDialog(frame,"Hai già una pagina con questo titolo");
-                    }
-                    else
-                    {
-                        buttonSave.setVisible(true);
-                        panelTextArea.setVisible(true);
-                        creaButton.setVisible(false);
-                    }
-                }
-                else
-                {
-                    JOptionPane.showMessageDialog(frame,"Inserisci un titolo");
-                }
-
-
-            }
-        });
-        returnButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false);
-                frame.dispose();
-                frameChiamante.setVisible(true);
-            }
-        });
-
-        buttonSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String testo;
-                testo = CreazionePagina.this.textArea.getText();
-
-                if(!testo.isBlank()) {
-                    if (!testo.endsWith("\n")) {
-                        testo += "\n";
-                    }
-                    int supp = 0;
-                    int positions = 0;
-                    do {
-                        String frase;
-                        positions = testo.indexOf("\n", supp + 1);
-                        if (positions != -1) {
-                            if (supp == 0) {
-                                frase = testo.substring(supp, positions + 1);
-                            } else {
-                                frase = testo.substring(supp + 1, positions + 1);
-                            }
-                            controller.gestioneTestoPage(frase,usernameAutore, textTitolo.getText());
-                            supp = positions;
-                        }
-
-                    } while (testo.indexOf("\n", positions + 1) != -1);
-                }
-                listTitoli.add(textTitolo.getText());
-                JOptionPane.showMessageDialog(frame,"Pagina creata con successo");
-                frameChiamante.setVisible(true);
-                frame.setVisible(false);
-                frame.dispose();
-            }
-
-        });
-    }
-}*/
-
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-
 public class CreazionePagina {
 
     public JFrame frame;
@@ -137,7 +26,6 @@ public class CreazionePagina {
         frame = new JFrame("Creazione Pagina");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-       // panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -147,21 +35,18 @@ public class CreazionePagina {
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
-        //textTitolo = new JTextField(20);
         panel1.add(textTitolo, gbc);
 
         // Crea Pulsante
         gbc.gridy++;
         gbc.gridwidth = 2;
-        //creaButton = new JButton("Crea Pagina");
         panel1.add(creaButton, gbc);
 
         // TextArea
-        //panelTextArea = new JPanel();
         panelTextArea.setLayout(new BorderLayout());
         panelTextArea.setVisible(false);
 
-        //textArea = new JTextArea(10, 20);
+
         JScrollPane scrollPane = new JScrollPane(textArea);
         panelTextArea.add(scrollPane, BorderLayout.CENTER);
 
@@ -172,14 +57,12 @@ public class CreazionePagina {
         // Salva Pulsante
         gbc.gridy++;
         gbc.gridwidth = 2;
-        //buttonSave = new JButton("Salva");
         buttonSave.setVisible(false);
         panel1.add(buttonSave, gbc);
 
         // Torna Indietro Pulsante
         gbc.gridy++;
         gbc.gridwidth = 2;
-        //returnButton = new JButton("Torna Indietro");
         panel1.add(returnButton, gbc);
 
         frame.getContentPane().add(panel1);
@@ -192,6 +75,7 @@ public class CreazionePagina {
                     if (!ctr) {
                         JOptionPane.showMessageDialog(frame, "Hai già una pagina con questo titolo");
                     } else {
+                        textTitolo.setEnabled(false);
                         buttonSave.setVisible(true);
                         panelTextArea.setVisible(true);
                         creaButton.setVisible(false);
@@ -231,6 +115,7 @@ public class CreazionePagina {
                             } else {
                                 frase = testo.substring(supp + 1, positions + 1);
                             }
+                            //if(frase.length()>1)
                             controller.gestioneTestoPage(frase, usernameAutore, textTitolo.getText());
                             supp = positions;
                         }

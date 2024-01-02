@@ -28,10 +28,12 @@
         <children>
           <component id="e7204" class="javax.swing.JButton" binding="buttonCreatePage">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="8" height="5"/>
+              </grid>
             </constraints>
             <properties>
-              <text value="Crea pagina"/>
+              <text value="         Crea pagina        "/>
             </properties>
           </component>
           <hspacer id="ff9fe">
@@ -46,7 +48,7 @@
             <properties>
               <horizontalAlignment value="0"/>
               <horizontalTextPosition value="4"/>
-              <text value="Aggiona lista pagine"/>
+              <text value="Aggiona lista"/>
               <verticalAlignment value="0"/>
               <verticalTextPosition value="0"/>
             </properties>

@@ -20,6 +20,7 @@ public class Home {
 
     public Home() {
         controller = new Controller(); //creo oggetto controller altrimenti non posso usare metodi implementati da lì
+        controller.leggiListinoDAO();
         Accesso_Autore.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

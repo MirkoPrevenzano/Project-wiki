@@ -19,6 +19,14 @@ public class Pagina {
         this.autore = autore;
         testo = new Testo();
     }
+    public Pagina(String titolo, LocalDate data, LocalTime ora, Autore autore)
+    {
+        this.titolo = titolo;
+        this.data = data;
+        this.ora = ora;
+        this.autore = autore;
+        testo = new Testo();
+    }
 
     public LocalTime getOra() {
         return ora;

@@ -15,9 +15,9 @@ public class Proposta {
 
     private List<Frase> frasiSelezionate;
 
-    private List<String> modifica;
+    private List<String> listProposte;
 
-    public Proposta( Utente utente, Autore autore, Testo testo, Frase frase, String modifica)
+    public Proposta( Utente utente, Autore autore, Testo testo, Frase fraseSelezionata, String modifica)
     {
         //data, ora e stato da inserire in automatico
 
@@ -25,22 +25,26 @@ public class Proposta {
         this.utente = utente;
         this.testo = testo;
         frasiSelezionate = new ArrayList<>();
-        frasiSelezionate.add(frase);
-        this.modifica = new ArrayList<>();
-        this.modifica.add(modifica);
+        frasiSelezionate.add(fraseSelezionata);
+        this.listProposte = new ArrayList<>();
+        this.listProposte.add(modifica);
+        if(utente==autore)
+            stato=true;
     }
-    public Proposta( Utente utente, Autore autore, Testo testo, List<Frase> frase, List<String> modifica)
+    public Proposta( Utente utente, Autore autore, Testo testo, List<Frase> listFrasiSelezionate, List<String> listModificaProposte)
     {
         //data, ora e stato da inserire in automatico
         this.autore = autore;
         this.utente = utente;
         this.testo = testo;
-        if(frasiSelezionate.size()!= modifica.size())
+        if(frasiSelezionate.size()!= listProposte.size())
         {
             throw new IllegalArgumentException("Numero frasi selezionate diverso dalle modifiche proposte");
         }
-        frasiSelezionate= frase;
-        this.modifica = modifica;
+        frasiSelezionate= listFrasiSelezionate;
+        this.listProposte = listModificaProposte;
+        if(utente==autore)
+            stato=true;
 
     }
 
@@ -54,17 +58,17 @@ public class Proposta {
 
     public void addListString(String propModify)
     {
-        modifica.add(propModify);
+        listProposte.add(propModify);
     }
 
     public void removeListString(String propModify)
     {
-        modifica.remove(propModify);
+        listProposte.remove(propModify);
     }
 
     public List<String> getListString()
     {
-        return modifica;
+        return listProposte;
     }
 
     public void addListFrase(Frase f)

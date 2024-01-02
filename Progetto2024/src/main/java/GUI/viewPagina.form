@@ -88,15 +88,15 @@
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Elimina elimina"/>
+                  <text value="Elimina frase"/>
                 </properties>
               </component>
-              <component id="c0e6c" class="javax.swing.JButton" binding="modificaTestoButton" default-binding="true">
+              <component id="c0e6c" class="javax.swing.JButton" binding="saveReturnButton" default-binding="true">
                 <constraints>
                   <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Modifica testo"/>
+                  <text value="Save &amp; Return"/>
                 </properties>
               </component>
               <vspacer id="91c4d">

@@ -14,6 +14,11 @@ public class Testo {
     }
 
     public List<Frase> getFrasi() {return listFrasi;}
+
+    public void setListFrasi(List<Frase> listFrasi) {
+        this.listFrasi = listFrasi;
+    }
+
     public void addFrase(Frase f)
     {
         listFrasi.add(f);
