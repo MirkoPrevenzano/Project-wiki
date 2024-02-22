@@ -1,0 +1,81 @@
+CREATE TABLE Utente (
+    Nome VARCHAR NOT NULL,
+    Cognome VARCHAR NOT NULL,
+    DataNascita DATE,
+    Matricola CHAR(8) PRIMARY KEY
+);
+CREATE TABLE Autore (
+    Matricola CHAR(8) REFERENCES Utente(Matricola),
+    Username VARCHAR UNIQUE,
+    psk VARCHAR,
+	PRIMARY KEY(Matricola),
+	UNIQUE(Matricola)
+);
+
+CREATE TABLE Pagina (
+    Titolo VARCHAR PRIMARY KEY NOT NULL,
+    Data DATE NOT NULL,
+    Ora TIME NOT NULL,
+    matricolaAutore VARCHAR REFERENCES Autore(Matricola)
+);
+
+
+
+
+CREATE TABLE Testo (
+    IdTesto SERIAL PRIMARY KEY
+);
+
+CREATE TABLE Frase (
+    Testo VARCHAR NOT NULL,
+    IdFrase SERIAL PRIMARY KEY,
+    Ordine INT NOT NULL,
+    IdTesto INT REFERENCES Testo(IdTesto)
+);
+
+
+CREATE TABLE VersioneProposta (
+    IdVersioneProposta SERIAL PRIMARY KEY,
+    Data DATE,
+    Ora TIME,
+    Stato BOOLEAN  DEFAULT FALSE,
+    Elaborato BOOLEAN DEFAULT TRUE,
+    Titolo VARCHAR REFERENCES Pagina(Titolo),
+    MatricolaAutore CHAR(8) REFERENCES Autore(Matricola),
+    Matricola CHAR(8) REFERENCES Utente(Matricola),
+    IdTesto INT REFERENCES Testo(IdTesto)
+);
+
+CREATE TABLE Modifica (
+    FraseProposta VARCHAR NOT NULL,
+    IdModifica SERIAL PRIMARY KEY,
+    IdFrase INT REFERENCES Frase(IdFrase),
+    IdVersioneProposta INT REFERENCES VersioneProposta(IdVersioneProposta),
+	UNIQUE(idFrase, idVersioneProposta)
+);
+
+CREATE TABLE VersioneCorrente (
+    IdVersioneCorrente SERIAL PRIMARY KEY,
+    Data DATE NOT NULL,
+    Ora TIME NOT NULL,
+    Titolo VARCHAR REFERENCES Pagina(Titolo),
+    IdTesto INT REFERENCES Testo(IdTesto),
+    UNIQUE(Titolo)
+);
+
+CREATE TABLE VersionePrecedente (
+    IdVersionePrecedente SERIAL PRIMARY KEY,
+    Data DATE NOT NULL,
+    Ora TIME NOT NULL,
+    Titolo VARCHAR REFERENCES Pagina(Titolo),
+    IdTesto INT REFERENCES Testo(IdTesto),
+    UNIQUE(Titolo, IdTesto)
+);
+
+CREATE TABLE Collegamento (
+    IdCollegamento SERIAL PRIMARY KEY,
+    IdFrase INT REFERENCES Frase(IdFrase),
+    Titolo VARCHAR REFERENCES Pagina(Titolo),
+	UNIQUE(idFrase)
+);
+
