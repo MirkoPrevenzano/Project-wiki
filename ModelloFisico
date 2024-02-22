@@ -1,0 +1,81 @@
+CREATE TABLE Utente (
+    Nome VARCHAR NOT NULL,
+    Cognome VARCHAR NOT NULL,
+    Data_Nascita DATE,
+    Matricola CHAR(8) PRIMARY KEY
+);
+CREATE TABLE Autore (
+    Matricola CHAR(8) REFERENCES Utente(Matricola),
+    Username VARCHAR UNIQUE,
+    psk VARCHAR,
+	CONSTRAINT autore_PK PRIMARY KEY(Matricola),
+	UNIQUE(Matricola)
+);
+
+CREATE TABLE Pagina (
+    Titolo VARCHAR PRIMARY KEY NOT NULL,
+    Data DATE NOT NULL,
+    Ora TIME NOT NULL,
+    matricola_Autore VARCHAR REFERENCES Autore(Matricola)
+);
+
+
+
+
+CREATE TABLE Testo (
+    Id_Testo SERIAL PRIMARY KEY
+);
+
+CREATE TABLE Frase (
+    Testo VARCHAR NOT NULL,
+    Id_Frase SERIAL PRIMARY KEY,
+    Ordine INT NOT NULL,
+    Id_Testo INT REFERENCES Testo(Id_Testo)
+);
+
+
+CREATE TABLE Versione_Proposta (
+    Id_Versione_Proposta SERIAL PRIMARY KEY,
+    Data DATE,
+    Ora TIME,
+    Stato BOOLEAN  DEFAULT FALSE,
+    Elaborato BOOLEAN DEFAULT TRUE,
+    Titolo VARCHAR REFERENCES Pagina(Titolo),
+    Matricola_Autore CHAR(8) REFERENCES Autore(Matricola),
+    Matricola CHAR(8) REFERENCES Utente(Matricola),
+    Id_Testo INT REFERENCES Testo(Id_Testo)
+);
+
+CREATE TABLE Modifica (
+    Frase_Proposta VARCHAR NOT NULL,
+    Id_Modifica SERIAL PRIMARY KEY,
+    Id_Frase INT REFERENCES Frase(Id_Frase),
+    Id_Versione_Proposta INT REFERENCES Versione_Proposta(Id_Versione_Proposta),
+	CONSTRAINT modifica_Uq UNIQUE(id_Frase, id_Versione_Proposta)
+);
+
+CREATE TABLE Versione_Corrente (
+    Id_Versione_Corrente SERIAL PRIMARY KEY,
+    Data DATE NOT NULL,
+    Ora TIME NOT NULL,
+    Titolo VARCHAR REFERENCES Pagina(Titolo),
+    Id_Testo INT REFERENCES Testo(Id_Testo),
+    CONSTRAINT versione_corrente_uq UNIQUE(Titolo)
+);
+
+CREATE TABLE Versione_Precedente (
+    Id_Versione_Precedente SERIAL PRIMARY KEY,
+    Data DATE NOT NULL,
+    Ora TIME NOT NULL,
+    Titolo VARCHAR REFERENCES Pagina(Titolo),
+    Id_Testo INT REFERENCES Testo(Id_Testo),
+    CONSTRAINT versione_precedente_uq UNIQUE(Titolo, Id_Testo)
+);
+
+CREATE TABLE Collegamento (
+    Id_Collegamento SERIAL PRIMARY KEY,
+    Id_Frase INT REFERENCES Frase(Id_Frase),
+    Titolo VARCHAR REFERENCES Pagina(Titolo),
+	CONSTRAINT collegamento_uq UNIQUE(id_Frase)
+);
+
