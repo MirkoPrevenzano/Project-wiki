@@ -9,7 +9,7 @@ CREATE TABLE Autore (
     Username VARCHAR UNIQUE,
     psk VARCHAR,
 	CONSTRAINT autore_PK PRIMARY KEY(Matricola),
-	UNIQUE(Matricola)
+	CONSTRAINT autore_UK UNIQUE(Matricola)
 );
 
 CREATE TABLE Pagina (
