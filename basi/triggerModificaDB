@@ -1,0 +1,167 @@
+CREATE OR REPLACE PROCEDURE crea_pagina(titolo_pagina VARCHAR, matricola_autore CHAR(9), username_autore VARCHAR)
+AS $$
+BEGIN
+    INSERT INTO pagina(titolo, login, matricola) VALUES (titolo_pagina, username_autore, matricola_autore);
+END;
+$$ LANGUAGE PLPGSQL;
+
+______________________________
+CREATE OR REPLACE FUNCTION before_insert_pagina()
+RETURNS TRIGGER AS $$
+DECLARE
+  id_testo_pagina testo.id_testo%TYPE;
+BEGIN
+  INSERT INTO testo DEFAULT VALUES RETURNING id_testo INTO id_testo_pagina;
+  NEW.id_testo := id_testo_pagina;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+---------------------
+CREATE TRIGGER before_insert_pagina
+BEFORE INSERT ON PAGINA
+FOR EACH ROW
+EXECUTE FUNCTION before_insert_pagina();
+_______________________________________________________
+
+CREATE OR REPLACE PROCEDURE aggiungi_utente(nome_utente VARCHAR, cognome_utente VARCHAR,
+											data_nascita_utente DATE, matricola_utente CHAR(9))
+AS $$
+BEGIN
+INSERT INTO utente(nome,cognome,data_nascita, matricola)
+VALUES(nome_utente, cognome_utente, data_nascita_utente, matricola_utente);
+END
+$$ LANGUAGE PLPGSQL;
+
+CREATE OR REPLACE PROCEDURE aggiungi_autore(nome_utente VARCHAR, cognome_utente VARCHAR,
+											data_nascita_utente DATE, matricola_utente CHAR(9),
+											username_autore VARCHAR, password_autore VARCHAR)
+AS $$
+BEGIN
+call aggiungi_utente(nome_utente, cognome_utente, data_nascita_utente, matricola_utente);
+INSERT INTO autore(username, matricola, password)
+VALUES(username_autore, matricola_utente, password_autore);
+END
+$$ LANGUAGE PLPGSQL;
+_________________________________________________________________
+CREATE OR REPLACE PROCEDURE inserisci_frase(titolo VARCHAR, testo_frase VARCHAR) AS $$
+DECLARE
+    id_testo_titolo INTEGER;
+    id_frase_nuova INTEGER;
+BEGIN 
+    SELECT id_testo INTO id_testo_titolo FROM pagina WHERE titolo = inserisci_frase.titolo;
+    
+    INSERT INTO frase(id_testo) VALUES(id_testo_titolo) RETURNING id_frase INTO id_frase_nuova;
+    
+    INSERT INTO versione(id_frase, testo) VALUES(id_frase_nuova, testo_frase);
+END;
+$$ LANGUAGE PLPGSQL;
+
+________________________________________________________
+CREATE OR REPLACE FUNCTION before_insert_frase()
+RETURNS TRIGGER AS $$
+DECLARE
+    ordine_max frase.ordine%TYPE;
+    num_righe INT;
+BEGIN
+    SELECT COUNT(*) INTO num_righe
+    FROM Frase
+    WHERE Id_Testo = NEW.Id_Testo;
+
+    IF num_righe = 0 THEN
+        NEW.Ordine := 1;
+    ELSE
+        SELECT MAX(Ordine) INTO ordine_max
+        FROM Frase
+        WHERE Id_Testo = NEW.Id_Testo;
+ 
+        NEW.Ordine := ordine_max + 1;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER before_insert_frase
+BEFORE INSERT ON frase
+FOR EACH ROW 
+EXECUTE FUNCTION before_insert_frase();
+-----------------------------------------------------------
+CREATE OR REPLACE FUNCTION before_insert_versione()
+RETURNS TRIGGER AS $$
+DECLARE
+    versione_max versione.num_versione%TYPE := 0;
+    numero_versioni INT := 0;
+BEGIN
+    SELECT COUNT(*) INTO numero_versioni
+    FROM Versione
+    WHERE id_frase = NEW.id_frase;
+
+    IF numero_versioni = 0 THEN
+        NEW.num_versione := 1;
+    ELSE
+        SELECT MAX(num_versione) INTO versione_max
+        FROM versione
+        WHERE Id_frase = NEW.Id_frase;
+
+        NEW.num_versione := versione_max + 1;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER before_insert_versione
+BEFORE INSERT ON versione
+FOR EACH ROW 
+EXECUTE FUNCTION before_insert_versione();
+
+__________________________________________________________
+CREATE OR REPLACE PROCEDURE proponi_modifica(posizione INTEGER, id_proposta_modifica INTEGER, modifica_proposta VARCHAR)
+AS $$
+DECLARE 
+    titolo_pagina pagina.titolo%TYPE;
+    id_frase_selezionata frase.id_frase%TYPE;
+BEGIN
+    SELECT titolo INTO titolo_pagina 
+    FROM proposta 
+    WHERE id_proposta = id_proposta_modifica;
+
+    SELECT f.id_frase INTO id_frase_selezionata 
+    FROM (frase f 
+    JOIN testo t ON f.id_testo = t.id_testo)
+    JOIN pagina p ON t.id_testo = p.id_testo
+    WHERE p.titolo = titolo_pagina AND f.ordine=posizione;
+
+    INSERT INTO modifica(frase_proposta, id_proposta, id_frase)
+    VALUES(modifica_proposta, id_proposta_modifica, id_frase_selezionata);
+END;
+$$ LANGUAGE PLPGSQL;
+
+_________________________
+CREATE OR REPLACE FUNCTION before_insert_modifica()
+RETURNS TRIGGER AS $$
+DECLARE
+    stato_proposta_attuale proposta.stato%TYPE;
+BEGIN
+    SELECT stato INTO stato_proposta_attuale
+    FROM proposta
+    WHERE id_proposta = NEW.id_proposta;
+
+    IF stato_proposta_attuale <> 'non inviato' THEN
+        RAISE EXCEPTION 'Proposta già inviata all utente, non può essere ulteriormente modificata';
+        RETURN OLD;
+    ELSE 
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE PLPGSQL;
+
+CREATE TRIGGER before_insert_modifica
+BEFORE INSERT ON modifica
+FOR EACH ROW
+EXECUTE FUNCTION before_insert_modifica(); 
+

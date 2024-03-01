@@ -1,0 +1,20 @@
+trigger
+-Al momento della creazione di una proposta. Se tale proposta è fatta dall'autore stesso di tale pagina automaticamente sarà accettata e modificato il testo
+-Si può accettare o rifiutare le proposte in ordine di meno recente
+-Prima dell'inseirmento di una frase bisgona prendere il massimo ordine di quel testo e fare ordine+1
+-Al momento di una modifica di una versione corrente, viene creata una versione precedente con la versione corrente iniziale.
+-Inserendo una pagina inserisco data e ora attuale
+vista:
+vista di una pagina attraverso un titolo.
+________________________________________________________________
+funzione per iscrizione utente OK
+funzione per iscrizione autore OK
+funzione per inserire frase OK
+trigger che gestisce proposta
+trigger che accetta in automatico una proposta inviata dall'autore stesso
+funzione per inserire collegamento
+funzione per creare pagina OK
+trigger che permette di inseirire modifiche solo in proposte ancora non inviate e le si possono eliminare solo se non inviate OK MANCA SOLO BEFORE DELETE ON MODIFICA
+
+__________________________________________
+optare di eliminare associazione autore proposta.
